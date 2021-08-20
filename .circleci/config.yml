@@ -9,26 +9,29 @@ workflows:
 jobs:
   build:
     docker: 
-      - image: cimg/node:14.13.0
-      steps:
-        - checkout
-        - run:
-            name: Run Build Command
-            command: echo "Hello I am building."
+      - image: circleci/node
+    working_directory: ~/Circleci_Test
+    steps:
+      - checkout
+      - run:
+          name: Run Build Command
+          command: echo "Hello I am building."
   test:
     docker:
-      - image: cimg/node:14.13.0
-      steps:
-        - checkout
-        - run:
-            name: Run Tests
-            command: echo "Hello I am testing"
+      - image: circleci/node
+    working_directory: ~/Circleci_Test
+    steps:
+      - checkout
+      - run:
+          name: Run Tests
+          command: echo "Hello I am testing"
   deploy:
     docker:
-      - image: cimg/node:14.13.0
-      steps:
-        - checkout
-        - run:
-            name: Run Deploy Command
-            command: echo "Hello I am deploying"
+      - image: circleci/node
+    working_directory: ~/Circleci_Test
+    steps:
+      - checkout
+      - run:
+          name: Run Deploy Command
+          command: echo "Hello I am deploying"
 
