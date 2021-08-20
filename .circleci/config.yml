@@ -10,7 +10,6 @@ jobs:
   build:
     docker: 
       - image: cimg/node:14.13.0
-      working_directory: ~/Circleci_Test
       steps:
         - checkout
         - run:
@@ -19,7 +18,6 @@ jobs:
   test:
     docker:
       - image: cimg/node:14.13.0
-      working_directory: ~/Circleci_Test
       steps:
         - checkout
         - run:
@@ -28,7 +26,6 @@ jobs:
   deploy:
     docker:
       - image: cimg/node:14.13.0
-      working_directory: ~/Circleci_Test
       steps:
         - checkout
         - run:
