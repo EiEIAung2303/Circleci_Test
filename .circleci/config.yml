@@ -3,16 +3,35 @@ version: 2.1
 workflows:
   test-deploy:
     jobs:
+      - build
       - test
+      - deploy
 jobs:
+  build:
+    docker: 
+      - image: circleci/node
+      working_directory: ~/Circleci_Test
+      steps:
+        - checkout
+        - run:
+            name: Run Build Command
+            command: echo "Hello I am building."
   test:
     docker:
-      - image: cimg/node:14.13.0
-    steps:
-      - checkout
-      - run:
-          name: Install dependencies
-          command: npm install
-      - run:
-          name: Run Tests
-          command: npm run test
+      - image: circleci/node
+      working_directory: ~/Circleci_Test
+      steps:
+        - checkout
+        - run:
+            name: Run Tests
+            command: echo "Hello I am testing"
+  deploy:
+    docker:
+      - image: circleci/node
+      working_directory: ~/Circleci_Test
+      steps:
+        - checkout
+        - run:
+            name: Run Deploy Command
+            command: echo "Hello I am deploying"
+
