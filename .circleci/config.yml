@@ -1,37 +1,24 @@
 version: 2.1
 
 workflows:
-  test-deploy:
+  execute_bulk:
     jobs:
-      - build
-      - test
-      - deploy
+      - build_deploy
+      
 jobs:
-  build:
-    docker: 
-      - image: circleci/node
+  build_deploy:
+    machine: 
+      - image: ubuntu-2004:202010-01
     working_directory: ~/Circleci_Test
     steps:
       - checkout
       - run:
-          name: Run Build Command
-          command: echo "Hello I am building."
-  test:
-    docker:
-      - image: circleci/node
-    working_directory: ~/Circleci_Test
-    steps:
-      - checkout
-      - run:
-          name: Run Tests
-          command: echo "Hello I am testing"
-  deploy:
-    docker:
-      - image: circleci/node
-    working_directory: ~/Circleci_Test
-    steps:
-      - checkout
-      - run:
-          name: Run Deploy Command
-          command: echo "Hello I am deploying"
+          name: Installing AWS CLI
+          command: |
+            sudo apt-get update
+            sudo apt install python3.7 
+            sudo pip install awsebcli --upgrade 
+      - run: cd ./app && npm install && npm run build
+      - run: aws s3 sync ./app/build s3://cicd_project
+
 
