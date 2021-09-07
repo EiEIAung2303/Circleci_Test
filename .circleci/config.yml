@@ -10,10 +10,10 @@ jobs:
     machine: 
       image: ubuntu-2004:202010-01
     working_directory: ~/Circleci_Test
-    - persist_to_workspace:
+      - persist_to_workspace:
           root: ~/
           paths:
-            - .app/build
+            - ./app/build
 
       - attach_workspace:
           at: ~/
